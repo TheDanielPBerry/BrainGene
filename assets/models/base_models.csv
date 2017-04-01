@@ -1,0 +1,9 @@
+Primary Id,Source Image,sx,sy,sw,sh,Class
+grass,assets/images/grass.png,0,0,128,128,FALSE
+mario,assets/images/mario.png,0,0,100,100,FALSE
+dirt,assets/images/dirt.png,0,0,128,128,FALSE
+bug,assets/images/bug.png,0,0,32,32,TRUE
+clara,assets/images/clara.png,0,0,181,256,TRUE
+tree,assets/images/tree.png,0,0,512,512,FALSE
+dust,assets/images/dust_swirl.png,0,0,64,64,TRUE
+spring,assets/images/spring.png,0,0,75,98,TRUE

@@ -1,0 +1,10 @@
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    Generation.java
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    Grafi.java
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    Session.java
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    ParamValue.java
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    Parameter.java
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    vectTableModel.java
+C:\Program Files\Java\jdk1.8.0_20\bin\javac -classpath c:\jes;C:\Program Files\Java\jdk1.8.0_20;c:\;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\lib\tools.jar    MainGui.java
+
+
+

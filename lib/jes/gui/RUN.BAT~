@@ -1,0 +1,1 @@
+java  -classpath C:\Program Files\Java\jre1.8.0_111\bin;C:\Program Files\Java\jre1.8.0_111\lib\tools.jar;C:\Program Files\Java\jre1.8.0_111\lib\rt.jar;C:\Users\Cantino\Documents\Java\RogerRabbit\lib\jes\gui; %1
