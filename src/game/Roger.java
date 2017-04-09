@@ -52,6 +52,8 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	public static boolean jump = false;
 	/**The controller is used for the 3rd party ps2 controller design to make gameplay more fun.*/
 	public static Controller controller = null;
+	/**The frame of the window*/
+	private JFrame frame;
 	/**0 is play, 1 is AI*/
 	private byte gameMode = 0;
 	
@@ -116,32 +118,33 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		g3.setColor(Color.ORANGE);
 		g3.fillRect(-Roger.WIN_DIM.w/2, -Roger.WIN_DIM.h/2, Roger.WIN_DIM.w, Roger.WIN_DIM.h);
 		
-		//Center the graphics context around the camera.
-		g3.translate(-Roger.getCam().dst.x-Roger.getCam().dst.w/2, -Roger.getCam().dst.y-Roger.getCam().dst.h/2);
-		g3.setColor(Color.RED);
-		final Vector2f offset = Roger.getCam().dst.getPos2f().neg().add(WIN_DIM.getDim2f().multiply(0.5f)).add(Roger.getCam().dst.getDim2f().multiply(0.5f).neg());
-		for(Article a : Roger.articles) {
-			if(a.dst.add(offset).intersects(WIN_DIM)) {
-				g3.drawImage(a.img, a.dst.x, a.dst.y, a.dst.x+a.dst.w, a.dst.y+a.dst.h, a.src.x, a.src.y, a.src.w, a.src.h, null);
-				/*for(Box b : a.boxes) {
-					b = b.add(a.dst);
-					g3.drawRect(b.x,b.y,b.w,b.h);
-				}*/
+		if(gameMode==0) {
+			//Center the graphics context around the camera.
+			g3.translate(-Roger.getCam().dst.x-Roger.getCam().dst.w/2, -Roger.getCam().dst.y-Roger.getCam().dst.h/2);
+			g3.setColor(Color.RED);
+			final Vector2f offset = Roger.getCam().dst.getPos2f().neg().add(WIN_DIM.getDim2f().multiply(0.5f)).add(Roger.getCam().dst.getDim2f().multiply(0.5f).neg());
+			for(Article a : Roger.articles) {
+				if(a.dst.add(offset).intersects(WIN_DIM)) {
+					g3.drawImage(a.img, a.dst.x, a.dst.y, a.dst.x+a.dst.w, a.dst.y+a.dst.h, a.src.x, a.src.y, a.src.w, a.src.h, null);
+					/*for(Box b : a.boxes) {
+						b = b.add(a.dst);
+						g3.drawRect(b.x,b.y,b.w,b.h);
+					}*/
+				}
 			}
-		}
-		g3.translate(Roger.getCam().dst.x+Roger.getCam().dst.w/2, Roger.getCam().dst.y+Roger.getCam().dst.w/2);
-		
-		g3.translate(-WIN_DIM.w/2, -WIN_DIM.h/2);
-		byte screen[][] = ArtificialIO.PollScreen(articles);
-		for(short y=0; y<screen.length; y++) {
-			for(short x=0; x<screen[y].length; x++) {
-				//g3.setColor(screen[y][x]==0?new Color(0,0,0,100): new Color(255,255,255,100));
-				g3.setColor(screen[y][x]==0? Color.BLACK : Color.GREEN);
-				g3.fillRect(y * WIN_DIM.w/100,x * WIN_DIM.h/100, WIN_DIM.w/100, WIN_DIM.h/100);
+			g3.translate(Roger.getCam().dst.x+Roger.getCam().dst.w/2, Roger.getCam().dst.y+Roger.getCam().dst.w/2);
+		} else {
+			g3.translate(-WIN_DIM.w/2, -WIN_DIM.h/2);
+			byte screen[][] = ArtificialIO.PollScreen(articles);
+			for(short y=0; y<screen.length; y++) {
+				for(short x=0; x<screen[y].length; x++) {
+					//g3.setColor(screen[y][x]==0?new Color(0,0,0,100): new Color(255,255,255,100));
+					g3.setColor(screen[y][x]==0? Color.BLACK : screen[y][x]==1? Color.RED : Color.GREEN);
+					g3.fillRect(y * WIN_DIM.w/100,x * WIN_DIM.h/50, WIN_DIM.w/100, WIN_DIM.h/50);
+				}
 			}
+			g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
 		}
-		g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
-
 		repaint();
 	}
 	
@@ -179,6 +182,10 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+		}
+		if(gameMode==1) {
+			frame.setVisible(false);
+			frame.dispose();
 		}
 	}
 	
@@ -254,9 +261,13 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 			break;
 		case KeyEvent.VK_ESCAPE:
 			Roger.game = false;
+			if(gameMode==0) {
+				System.exit(0);
+			}
 			break;
 		}
 	}
+	
 	public void keyTyped(KeyEvent e) {
 		
 	}
@@ -266,16 +277,16 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		//
 		//Build the frame, buffer and input for the game
 		//
-		JFrame f = new JFrame("Roger Rabbit");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(WIN_DIM.getDim());
+		JFrame frame = new JFrame("Roger Rabbit");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(WIN_DIM.getDim());
 		//f.setUndecorated(true);
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 		
 		Roger r = new Roger();
-		f.add(r);
-		f.addKeyListener(r);
+		frame.add(r);
+		frame.addKeyListener(r);
 		
 		r.buffer = new BufferedImage(WIN_DIM.w, WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
 		g3 = r.buffer.getGraphics();
@@ -285,14 +296,7 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		
 		Thread t = new Thread(r);
 		t.start();
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
-		f.setVisible(false);
-		f.dispose();
 	}
 	
 	public Roger() {
@@ -303,32 +307,22 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		//
 		//Build the frame, buffer and input for the game
 		//
-		JFrame f = new JFrame("Roger Rabbit");
+		frame = new JFrame("Roger Rabbit");
 		//f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(WIN_DIM.getDim());
+		frame.setSize(WIN_DIM.getDim());
 		//f.setUndecorated(true);
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 		
-		f.add(this);
-		f.addKeyListener(this);
+		frame.add(this);
+		frame.addKeyListener(this);
 		
 		buffer = new BufferedImage(WIN_DIM.w, WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
 		g3 = buffer.getGraphics();
 		g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
 		
 		setup();
-		
-		Thread t = new Thread(this);
-		t.start();
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		f.setVisible(false);
-		f.dispose();
+		gameMode = 1;
 		
 	}
 	

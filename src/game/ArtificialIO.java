@@ -6,7 +6,7 @@ public class ArtificialIO {
 	
 	
 	public static byte[][] PollScreen(ArrayList<Article> articles) {
-		final Vector2f arraySize  = new Vector2f(100,100);
+		final Vector2f arraySize  = new Vector2f(100,50);
 		byte screen[][] = new byte[(int) arraySize.x][(int) arraySize.y];
 		Box scanner = new Box(Roger.getCam().dst.x+(Roger.getCam().dst.w/2)-Roger.WIN_DIM.w/2, Roger.getCam().dst.y+(Roger.getCam().dst.h/2)-Roger.WIN_DIM.h/2,(int)(Roger.WIN_DIM.w/arraySize.x), (int)(Roger.WIN_DIM.h/arraySize.y));
 		
@@ -19,7 +19,7 @@ public class ArtificialIO {
 					if(article.boxes != null) {
 						for(Box box : article.boxes) {
 							if(box.add(article.dst).intersects(scanner)) {
-								screen[x][y] = 1;
+								screen[x][y] = (byte) (article.staticElement?2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1);
 							}
 						}
 					}
