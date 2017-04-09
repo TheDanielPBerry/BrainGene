@@ -1,0 +1,17 @@
+<chromosome id="3230" primary-parent-id="1551"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="4" src-id="0" dest-id="3" weight="-1.6134310289632503"/>
+<connection id="5" src-id="1" dest-id="3" weight="0.7374733707904377"/>
+<neuron id="296" type="hid" activation="sigmoid"/>
+<neuron id="426" type="hid" activation="sigmoid"/>
+<connection id="427" src-id="296" dest-id="426" weight="1.5975454008633538"/>
+<connection id="428" src-id="426" dest-id="3" weight="-0.4526734935857764"/>
+<neuron id="566" type="hid" activation="sigmoid"/>
+<connection id="567" src-id="2" dest-id="566" weight="4.507898344569712"/>
+<neuron id="826" type="hid" activation="sigmoid"/>
+<connection id="827" src-id="566" dest-id="826" weight="1.678073751221992"/>
+<connection id="828" src-id="826" dest-id="296" weight="-0.4903876036786905"/>
+<connection id="953" src-id="1" dest-id="826" weight="3.562188828721884"/>
+</chromosome>

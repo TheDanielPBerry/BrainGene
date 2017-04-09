@@ -1,0 +1,15 @@
+<chromosome id="3404" primary-parent-id="3069"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="6" src-id="2" dest-id="3" weight="-0.9406806401505916"/>
+<neuron id="163" type="hid" activation="sigmoid"/>
+<connection id="164" src-id="1" dest-id="163" weight="1.3399876868232061"/>
+<connection id="292" src-id="0" dest-id="163" weight="-7.4646637869172565"/>
+<neuron id="293" type="hid" activation="sigmoid"/>
+<connection id="294" src-id="163" dest-id="293" weight="-2.759880672715962"/>
+<connection id="295" src-id="293" dest-id="3" weight="7.290666625365812"/>
+<neuron id="563" type="hid" activation="sigmoid"/>
+<connection id="564" src-id="0" dest-id="563" weight="0.13554438576665295"/>
+<connection id="565" src-id="563" dest-id="3" weight="-3.29687692090377"/>
+</chromosome>

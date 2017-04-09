@@ -1,0 +1,12 @@
+<chromosome id="3324" primary-parent-id="2863"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="5" src-id="1" dest-id="3" weight="1.079854858021507"/>
+<neuron id="296" type="hid" activation="sigmoid"/>
+<connection id="297" src-id="2" dest-id="296" weight="-0.21987261679024606"/>
+<connection id="298" src-id="296" dest-id="3" weight="2.4358717983134337"/>
+<neuron id="563" type="hid" activation="sigmoid"/>
+<connection id="564" src-id="0" dest-id="563" weight="4.494771526654974"/>
+<connection id="565" src-id="563" dest-id="3" weight="-0.01152333242787007"/>
+</chromosome>

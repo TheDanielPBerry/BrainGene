@@ -1,0 +1,13 @@
+<chromosome id="3351" primary-parent-id="2663"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="4" src-id="0" dest-id="3" weight="0.24783794352975663"/>
+<connection id="6" src-id="2" dest-id="3" weight="-2.5725344320865515"/>
+<neuron id="163" type="hid" activation="sigmoid"/>
+<connection id="164" src-id="1" dest-id="163" weight="-0.09251444074989323"/>
+<connection id="292" src-id="0" dest-id="163" weight="-7.268092958374789"/>
+<neuron id="293" type="hid" activation="sigmoid"/>
+<connection id="294" src-id="163" dest-id="293" weight="-7.16947435404441"/>
+<connection id="295" src-id="293" dest-id="3" weight="10.799964777453043"/>
+</chromosome>

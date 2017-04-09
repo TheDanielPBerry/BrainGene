@@ -1,0 +1,25 @@
+<chromosome id="2044" primary-parent-id="2007"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="5" src-id="1" dest-id="3" weight="2.187470884382422"/>
+<neuron id="296" type="hid" activation="sigmoid"/>
+<connection id="297" src-id="2" dest-id="296" weight="7.0996805155108405"/>
+<neuron id="426" type="hid" activation="sigmoid"/>
+<connection id="428" src-id="426" dest-id="3" weight="-1.9450022055102778"/>
+<connection id="561" src-id="0" dest-id="426" weight="1.7476509431741665"/>
+<neuron id="563" type="hid" activation="sigmoid"/>
+<connection id="564" src-id="0" dest-id="563" weight="1.9628110443516957"/>
+<connection id="565" src-id="563" dest-id="3" weight="-7.473248197312439"/>
+<neuron id="566" type="hid" activation="sigmoid"/>
+<connection id="567" src-id="2" dest-id="566" weight="7.44067774102632"/>
+<neuron id="826" type="hid" activation="sigmoid"/>
+<connection id="827" src-id="566" dest-id="826" weight="-0.6360423549596821"/>
+<connection id="828" src-id="826" dest-id="296" weight="3.115141618621667"/>
+<neuron id="967" type="hid" activation="sigmoid"/>
+<connection id="968" src-id="296" dest-id="967" weight="4.252269533121417"/>
+<connection id="969" src-id="967" dest-id="426" weight="-4.515489855372545"/>
+<connection id="1226" src-id="2" dest-id="563" weight="-0.5558467866513712"/>
+<connection id="1368" src-id="2" dest-id="826" weight="-0.19844353600170606"/>
+<connection id="1504" src-id="0" dest-id="826" weight="-0.7773333707897173"/>
+</chromosome>

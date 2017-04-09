@@ -1,0 +1,15 @@
+<chromosome id="3371" primary-parent-id="2838"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="4" src-id="0" dest-id="3" weight="-1.1962379111151962"/>
+<connection id="5" src-id="1" dest-id="3" weight="0.822248894249489"/>
+<neuron id="296" type="hid" activation="sigmoid"/>
+<connection id="297" src-id="2" dest-id="296" weight="4.213462054204285"/>
+<connection id="298" src-id="296" dest-id="3" weight="-0.2668932117128366"/>
+<neuron id="426" type="hid" activation="sigmoid"/>
+<connection id="427" src-id="296" dest-id="426" weight="2.063993026836604"/>
+<neuron id="698" type="hid" activation="sigmoid"/>
+<connection id="699" src-id="426" dest-id="698" weight="-1.0148403189210702"/>
+<connection id="700" src-id="698" dest-id="3" weight="-0.08991297930122943"/>
+</chromosome>

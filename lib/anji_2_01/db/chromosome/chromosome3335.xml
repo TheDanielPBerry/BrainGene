@@ -1,0 +1,16 @@
+<chromosome id="3335" primary-parent-id="2062"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="4" src-id="0" dest-id="3" weight="-5.336276778595117"/>
+<connection id="5" src-id="1" dest-id="3" weight="1.6245283194833569"/>
+<neuron id="296" type="hid" activation="sigmoid"/>
+<connection id="297" src-id="2" dest-id="296" weight="-0.6978463280429011"/>
+<neuron id="426" type="hid" activation="sigmoid"/>
+<connection id="427" src-id="296" dest-id="426" weight="-2.670706962006939"/>
+<neuron id="698" type="hid" activation="sigmoid"/>
+<connection id="700" src-id="698" dest-id="3" weight="-0.07291973967488463"/>
+<neuron id="2032" type="hid" activation="sigmoid"/>
+<connection id="2033" src-id="426" dest-id="2032" weight="1.824418847832721"/>
+<connection id="2034" src-id="2032" dest-id="698" weight="2.073230098119684"/>
+</chromosome>

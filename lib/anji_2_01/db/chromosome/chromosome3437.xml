@@ -1,0 +1,10 @@
+<chromosome id="3437" primary-parent-id="1770"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="4" src-id="0" dest-id="3" weight="0.9893960084074094"/>
+<connection id="6" src-id="2" dest-id="3" weight="-2.064232100068392"/>
+<neuron id="163" type="hid" activation="sigmoid"/>
+<connection id="164" src-id="1" dest-id="163" weight="4.145983436768925"/>
+<connection id="165" src-id="163" dest-id="3" weight="-3.148866990612272"/>
+</chromosome>

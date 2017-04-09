@@ -1,0 +1,14 @@
+<chromosome id="3427" primary-parent-id="2584"><neuron id="0" type="in" activation="linear"/>
+<neuron id="1" type="in" activation="linear"/>
+<neuron id="2" type="in" activation="linear"/>
+<neuron id="3" type="out" activation="sigmoid"/>
+<connection id="4" src-id="0" dest-id="3" weight="-0.9152537120938709"/>
+<connection id="5" src-id="1" dest-id="3" weight="2.206777429132795"/>
+<neuron id="296" type="hid" activation="sigmoid"/>
+<neuron id="426" type="hid" activation="sigmoid"/>
+<connection id="427" src-id="296" dest-id="426" weight="2.529959941448545"/>
+<connection id="428" src-id="426" dest-id="3" weight="0.21353784581002477"/>
+<neuron id="566" type="hid" activation="sigmoid"/>
+<connection id="567" src-id="2" dest-id="566" weight="6.604861092183699"/>
+<connection id="568" src-id="566" dest-id="296" weight="-2.562090789295592"/>
+</chromosome>

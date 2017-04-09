@@ -8,7 +8,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,6 +106,13 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 				a.velocity.x = 0f;
 			}
 		}
+		
+		if(camera.dst.y>1000) {
+			die();
+		}
+		if(gameMode==1 && camera.velocity.x == 0 && camera.velocity.y == 0) {
+			
+		}
 	}
 	
 	
@@ -160,6 +166,11 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 				break;
 			}
 		}
+	}
+	
+	/**Kill the player*/
+	public void die() {
+		game = false;
 	}
 	
 	
