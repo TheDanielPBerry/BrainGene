@@ -55,7 +55,8 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	private JFrame frame;
 	/**0 is play, 1 is AI*/
 	private byte gameMode = 0;
-	
+	/**A byte that tracks how many frames the player has not moved.*/
+	private byte frozenCounter = 0;
 	
 	/**
 	 * Perform a single second of computation for my physics engine and do computations for all the articles in the game world.
@@ -106,12 +107,14 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 				a.velocity.x = 0f;
 			}
 		}
-		
-		if(camera.dst.y>1000) {
+		if(camera.dst.y>512) {
 			die();
 		}
 		if(gameMode==1 && camera.velocity.x == 0 && camera.velocity.y == 0) {
-			
+			frozenCounter++;
+			if(frozenCounter>128) {
+				die();
+			}
 		}
 	}
 	
@@ -177,27 +180,36 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	/**The main loop and timer where refreshes of the screen and physics are performed.*/
 	public void run() {
 		while(Roger.game) {
-			if(refresh>refreshRate) {
-				make();
-				refresh = 0;
-			}refresh++;
-			
-			
-			if(tick>tickRate) {
+			if(gameMode==0) {
+				if(refresh>refreshRate) {
+					make();
+					refresh = 0;
+				}refresh++;
+				if(tick>tickRate) {
+					tick();
+					tick = 0;
+				}tick++;
+				try {
+					Thread.sleep(1);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+			} else {
 				tick();
-				tick = 0;
-			}tick++;
-			
-			try {
-				Thread.sleep(1);
-			}catch(Exception e) {
-				e.printStackTrace();
+				byte screen[] = ArtificialIO.Vectorize(ArtificialIO.PollScreen(articles));
+				keys = Neat.GetMove(screen);
 			}
+			
 		}
+		
+		
 		if(gameMode==1) {
+			Neat.SendMessage("DEAD||");
 			frame.setVisible(false);
 			frame.dispose();
 		}
+		System.out.print(getFitness());
 	}
 	
 	/**A convenience method to retrieve the focus article. AKA as the camera or character.*/
@@ -310,6 +322,11 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		
 	}
 	
+	public float getFitness() {
+		return getCam().dst.x;
+	}
+	
+	
 	public Roger() {
 		
 	}
@@ -318,20 +335,20 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		//
 		//Build the frame, buffer and input for the game
 		//
-		frame = new JFrame("Roger Rabbit");
-		//f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(WIN_DIM.getDim());
-		//f.setUndecorated(true);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
-		frame.add(this);
-		frame.addKeyListener(this);
-		
-		buffer = new BufferedImage(WIN_DIM.w, WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
-		g3 = buffer.getGraphics();
-		g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
-		
+//		frame = new JFrame("Roger Rabbit");
+//		//f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setSize(WIN_DIM.getDim());
+//		//f.setUndecorated(true);
+//		frame.setLocationRelativeTo(null);
+//		frame.setVisible(true);
+//		
+//		frame.add(this);
+//		frame.addKeyListener(this);
+//		
+//		buffer = new BufferedImage(WIN_DIM.w, WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
+//		g3 = buffer.getGraphics();
+//		g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
+//		
 		setup();
 		gameMode = 1;
 		

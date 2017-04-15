@@ -31,5 +31,15 @@ public class ArtificialIO {
 		return screen;
 	}
 	
+
+	public static byte[] Vectorize(byte[][] data) {
+		byte result[] = new byte[data[0].length*data.length];
+		for(int y=0; y<0; y++) {
+			for(int x=0; x<0; x++) {
+				result[(y*data[0].length)+x] = data[x][y];
+			}
+		}
+		return result;
+	}
 	
 }
