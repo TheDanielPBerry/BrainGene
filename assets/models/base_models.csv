@@ -7,3 +7,4 @@ clara,assets/images/clara.png,0,0,181,256,TRUE
 tree,assets/images/tree.png,0,0,512,512,FALSE
 dust,assets/images/dust_swirl.png,0,0,64,64,TRUE
 spring,assets/images/spring.png,0,0,75,98,TRUE
+flag,assets/images/flag.png,0,0,128,256,FALSE

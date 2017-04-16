@@ -67,19 +67,19 @@ public class HandheldController implements Runnable {
 				roger.keys[1] = true;
 			}
 			else if(data<-0.8f) {
-				roger.keys[3] = true;
+				roger.keys[2] = true;
 			}else {
-				roger.keys[1] = roger.keys[3] = false;
+				roger.keys[1] = roger.keys[2] = false;
 			}
 			break;
 		case Y:
 			if(data>0.8f) {
-				roger.keys[2] = true;
+				roger.keys[3] = true;
 			}
 			else if(data<-0.8f) {
 				roger.keys[0] = true;
 			}else {
-				roger.keys[0] = roger.keys[2] = false;
+				roger.keys[0] = roger.keys[3] = false;
 			}
 			break;
 		default:
@@ -97,7 +97,7 @@ public class HandheldController implements Runnable {
 		roger.keys[0] = roger.keys[1] = roger.keys[1] = roger.keys[2] = roger.keys[3] = false;
 		switch((int)(data*1000)) {
 		case 125:
-			roger.keys[3] = roger.keys[0] = true;
+			roger.keys[2] = roger.keys[0] = true;
 			break;
 		case 250:
 			roger.keys[0] = true;
@@ -109,13 +109,13 @@ public class HandheldController implements Runnable {
 			roger.keys[1] = true;
 			break;
 		case 625:
-			roger.keys[1] = roger.keys[2] = true;
+			roger.keys[1] = roger.keys[3] = true;
 			break;
 		case 750:
-			roger.keys[2] = true;
+			roger.keys[3] = true;
 			break;
 		case 875:
-			roger.keys[2] = roger.keys[3] = true;
+			roger.keys[3] = roger.keys[2] = true;
 			break;
 		case 1000:
 			roger.keys[3] = true;

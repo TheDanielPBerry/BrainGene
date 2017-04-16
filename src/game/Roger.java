@@ -4,6 +4,7 @@ import game.articles.Clara;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -64,6 +65,8 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	private Box playerTracker = new Box(0,0,0,0);
 	/**String path to local file system*/
 	public static final String relativeFilePath = "C:/Users/Cantino/Documents/Java/RogerRabbit/";
+	/**A boolean to determine if you won.*/
+	public boolean win = false;
 	
 	
 	
@@ -120,6 +123,9 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		}
 		playerTracker = camera.dst.copy();
 		
+		if(camera.dst.x>=3950) {
+			win();
+		}
 		
 		Iterator<Article> iter = Roger.articles.iterator();
 		while(iter.hasNext()) {
@@ -172,11 +178,16 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 			for(short y=0; y<screen.length; y++) {
 				for(short x=0; x<screen[y].length; x++) {
 					//g3.setColor(screen[y][x]==0?new Color(0,0,0,100): new Color(255,255,255,100));
-					g3.setColor(screen[y][x]==0? Color.BLACK : screen[y][x]==1? Color.RED : Color.GREEN);
+					g3.setColor(screen[y][x]==0? Color.BLACK : screen[y][x]==1? Color.RED : Color.BLUE);
 					g3.fillRect(y * Roger.WIN_DIM.w/100,x * Roger.WIN_DIM.h/50, Roger.WIN_DIM.w/100, Roger.WIN_DIM.h/50);
 				}
 			}
 			g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
+			if(win) {
+				g3.setColor(Color.BLACK);
+				g3.setFont(new Font("Helvetica", Font.BOLD, 50));
+				g3.drawString("Congratulations!", -WIN_DIM.w/5, -WIN_DIM.h/3);
+			}
 		repaint();
 	}
 	
@@ -201,7 +212,13 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		System.out.println(stuckCounter);
 		game = false;
 	}
+
 	
+	/**Kill the player and win*/
+	public void win() {
+		win = true;
+		//game = false;
+	}
 	
 	/**The main loop and timer where refreshes of the screen and physics are performed.*/
 	public void run() {
@@ -227,7 +244,7 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 				byte screen[] = ArtificialIO.Vectorize(ArtificialIO.PollScreen(articles));
 				keys = Neat.GetMove(screen);
 				if(gameMode==1) tick();
-			} 
+			}
 		}
 		if(gameMode==0) {
 			System.out.println(getFitness());
@@ -354,48 +371,33 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		System.out.println(getCam().velocity.toString() + "|" + getCam().dst.getPos2f());
 		return fitness;
 	}
-	
-	
+
 	public Roger() {
-		Box DisplayWIN_DIM = new Box(Toolkit.getDefaultToolkit().getScreenSize());
+		
+	}
+	
+	public Roger(int i) {
+		Roger.WIN_DIM = new Box(Toolkit.getDefaultToolkit().getScreenSize());
 		//
 		//Build the frame, buffer and input for the game
 		//
 		frame = new JFrame("Roger Rabbit");
-		//f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(DisplayWIN_DIM.getDim());
+		frame.setSize(Roger.WIN_DIM.getDim());
 		//f.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 		frame.add(this);
 		
-		buffer = new BufferedImage(DisplayWIN_DIM.w, DisplayWIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
+		buffer = new BufferedImage(Roger.WIN_DIM.w, Roger.WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
 		g3 = buffer.getGraphics();
-		g3.translate(DisplayWIN_DIM.w/2, DisplayWIN_DIM.h/2);
+		g3.translate(Roger.WIN_DIM.w/2, Roger.WIN_DIM.h/2);
 //		
 		gameMode = 2;
 		
 	}
 	
 	public Roger(int[] weights) {
-		//
-		//Build the frame, buffer and input for the game
-		//
-//		frame = new JFrame("Roger Rabbit");
-//		//f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(WIN_DIM.getDim());
-//		//f.setUndecorated(true);
-//		frame.setLocationRelativeTo(null);
-//		frame.setVisible(true);
-//		
-//		frame.add(this);
-//		frame.addKeyListener(this);
-//		
-//		buffer = new BufferedImage(WIN_DIM.w, WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
-//		g3 = buffer.getGraphics();
-//		g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
-//		
 		gameMode = 1;
 		
 	}

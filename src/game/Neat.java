@@ -30,7 +30,7 @@ public class Neat {
 	
 	
 	public static float StartGame(int id) {
-		Roger game = new Roger(null);
+		Roger game = new Roger(1);
 		Thread t = new Thread(game);
 		t.start();
 		try {
