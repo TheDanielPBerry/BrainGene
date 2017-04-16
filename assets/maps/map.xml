@@ -1,37 +1,26 @@
 <?xml version="1.0" ?>
-
 <Map src="base">
-	
-	
 	<tree x="500" y="-256" static="true" />
-	
 	<clara x="0" y="0" w="128" h="128" static="false" camera="true" />
-	
-	<bug x="200" y="-500" />
+	<bug x="800" y="90" />
 	<tree x="800" y="-300" static="true" />
-	
-	<spring x="1900" y="0" static="false" />
-	
+	<spring x="1930" y="0" static="false" />
 	<strip count="18" xstep="128" ystep="0">
 		<grass x="-256" y="128" static="true" />
 		<strip count="2" xstep="0" ystep="128">
 			<dirt x="-256" y="256" static="true" />
 		</strip>
 	</strip>
-	
 	<strip count="6" xstep="128" ystep="0">
 		<grass x="2048" y="-384" static="true" />
 		<strip count="6" xstep="0" ystep="128">
 			<dirt x="2048" y="-256" static="true" />
 		</strip>
 	</strip>
-	
 	<strip count="10" xstep="128" ystep="0">
 		<grass x="3096" y="-384" static="true" />
 		<strip count="3" xstep="0" ystep="128">
 			<dirt x="3096" y="-256" static="true" />
 		</strip>
 	</strip>
-	
-	
 </Map>

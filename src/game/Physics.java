@@ -8,7 +8,7 @@ public class Physics {
 	 * If collisions at set velocities are found collision handling is handled by both the respective classes and an internal 
 	 * collision handling function referenced: collide(Box topBox, Box bottomBox, Vector2f v) - float
 	 */
-	public static void move() {
+	public static boolean move(boolean jump) {
 		for(Article top : Roger.articles) {
 			if(top.boxes!=null) {
 				for(Article bottom : Roger.articles) {
@@ -35,8 +35,8 @@ public class Physics {
 							for(Box bottomBox : bottom.boxes) {
 								bottomBox = bottomBox.add(bottom.dst);
 								if(nextY.intersects(bottomBox)) {
-									if(top==Roger.getCam() && top.velocity.y>0 && !Roger.keys[0]) {
-										Roger.jump = true;
+									if(top==Roger.getCam() && top.velocity.y>0) {
+										jump = true;
 									}
 									top.velocity.y = Physics.collide(topBox.add(top.dst), bottomBox, top.velocity.Y());
 									top.collide(Direction.Y, bottom);
@@ -50,6 +50,7 @@ public class Physics {
 				top.dst.y += top.velocity.y;
 			}
 		}
+		return jump;
 	}
 	
 	/**

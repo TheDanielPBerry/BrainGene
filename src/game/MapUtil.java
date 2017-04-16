@@ -26,12 +26,14 @@ import org.xml.sax.SAXException;
 public class MapUtil {
 	
 	
+	
 	@SuppressWarnings("unchecked")
 	public static HashMap<String, Model> LoadModels(String dbFilePath) {
 		HashMap<String, Model> models = new HashMap<String, Model>();
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new FileReader(dbFilePath));
+			FileReader fReader = new FileReader(dbFilePath);
+			reader = new BufferedReader(fReader);
 			String line = reader.readLine();
 			String tags[] = line.split(",", -1);
 			while((line = reader.readLine()) != null) {
@@ -53,6 +55,7 @@ public class MapUtil {
 				models.put(m.name, m);
 			}
 			reader.close();
+			fReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +77,8 @@ public class MapUtil {
 		HashMap<String, ArrayList<Box>> boxes = new HashMap<String, ArrayList<Box>>();
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new FileReader(fileName));
+			FileReader fReader = new FileReader(fileName);
+			reader = new BufferedReader(fReader);
 			String line = reader.readLine();
 			String tags[] = line.split(",", -1);
 			while((line = reader.readLine()) != null) {
@@ -92,6 +96,7 @@ public class MapUtil {
 				}
 			}
 			reader.close();
+			fReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -199,8 +204,8 @@ public class MapUtil {
 			Document doc = dBuilder.parse(inputFile);
 			Element world = doc.getDocumentElement();
 			world.normalize();
-			HashMap<String, Model> models = MapUtil.LoadModels("assets/models/" + world.getAttribute("src") + "_models.csv");
-			models = MapUtil.AssignBoxes(models, "assets/models/" + world.getAttribute("src") + "_boxes.csv");
+			HashMap<String, Model> models = MapUtil.LoadModels(Roger.relativeFilePath + "assets/models/" + world.getAttribute("src") + "_models.csv");
+			models = MapUtil.AssignBoxes(models, Roger.relativeFilePath + "assets/models/" + world.getAttribute("src") + "_boxes.csv");
 			NodeList nodeList = world.getChildNodes();
 			articles.addAll(SubList(nodeList, new Vector2f(0,0), models));
 			Roger.models = models;
@@ -213,5 +218,8 @@ public class MapUtil {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
+	}
+	public static void LoadMap(ArrayList<Article> articles) {
+		
 	}
 }

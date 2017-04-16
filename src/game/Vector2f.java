@@ -34,5 +34,7 @@ public class Vector2f {
 	public Vector2f multiply(float a) {
 		return new Vector2f(x*a, y*a);
 	}
-	
+	public String toString() {
+		return "(" + x + "," + y +  ")";
+	}
 }

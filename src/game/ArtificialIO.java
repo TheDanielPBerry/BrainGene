@@ -6,7 +6,7 @@ public class ArtificialIO {
 	
 	
 	public static byte[][] PollScreen(ArrayList<Article> articles) {
-		final Vector2f arraySize  = new Vector2f(100,50);
+		final Vector2f arraySize  = new Vector2f(20,15);
 		byte screen[][] = new byte[(int) arraySize.x][(int) arraySize.y];
 		Box scanner = new Box(Roger.getCam().dst.x+(Roger.getCam().dst.w/2)-Roger.WIN_DIM.w/2, Roger.getCam().dst.y+(Roger.getCam().dst.h/2)-Roger.WIN_DIM.h/2,(int)(Roger.WIN_DIM.w/arraySize.x), (int)(Roger.WIN_DIM.h/arraySize.y));
 		
@@ -34,9 +34,9 @@ public class ArtificialIO {
 
 	public static byte[] Vectorize(byte[][] data) {
 		byte result[] = new byte[data[0].length*data.length];
-		for(int y=0; y<0; y++) {
-			for(int x=0; x<0; x++) {
-				result[(y*data[0].length)+x] = data[x][y];
+		for(int y=0; y<data.length; y++) {
+			for(int x=0; x<data[0].length; x++) {
+				result[(y*data[0].length)+x] = data[y][x];
 			}
 		}
 		return result;

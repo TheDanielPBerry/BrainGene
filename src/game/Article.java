@@ -51,7 +51,7 @@ public class Article {
 			dest.h = m.src.h;
 		}
 		dst = dest;
-		img = new ImageIcon(m.img).getImage();
+		img = new ImageIcon(Roger.relativeFilePath + m.img).getImage();
 		boxes = m.boxes;
 		name = m.name;
 		velocity = new Vector2f();
@@ -59,7 +59,7 @@ public class Article {
 	public Article(Model m, Vector2f pos) {
 		src = m.src.copy();
 		dst = new Box((int)pos.x, (int)pos.y, m.src.w, m.src.h);
-		img = new ImageIcon(m.img).getImage();
+		img = new ImageIcon(Roger.relativeFilePath + m.img).getImage();
 		boxes = m.boxes;
 		name = m.name;
 		velocity = new Vector2f();

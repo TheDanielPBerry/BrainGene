@@ -10,24 +10,26 @@ public class Neat {
 	
 	
 
-	static DatagramSocket socket;
+	static DatagramSocket Socket;
+	static int Port;
 	
 	public static boolean[] GetMove(byte[] screen) {
-		String message = "GET_MOVE||" + new String(screen) + "||";
+		String message = "GET_MOVE|" + new String(screen) + "|";
 		String data=null;
-		for(byte i=0; i<4 && data==null; i++) {
-			data = ProcessCommand(SendMessage(message));
+		for(byte i=0; i<10 && data==null; i++) {
+			data = SendMessage(message);
 		}
+		data = data.split("\\|")[1];
 		byte[] result = data.getBytes();
 		boolean moves[] = new boolean[result.length];
 		for(byte i=0; i<moves.length; i++) {
-			moves[i] = result[i] == 1;
+			moves[i] = result[i] == 49;
 		}
 		return moves;
 	}
 	
+	
 	public static float StartGame(int id) {
-		System.out.println("NEW GAME " + id);
 		Roger game = new Roger(null);
 		Thread t = new Thread(game);
 		t.start();
@@ -39,29 +41,13 @@ public class Neat {
 		return game.getFitness();
 	}
 	
-	public static void Listen() {
-		try {
-			while(true) {
-	            byte inBuffer[] = new byte[512];
-	            DatagramPacket inPacket = new DatagramPacket(inBuffer, inBuffer.length);
-	            socket.receive(inPacket);
-	            String input = BufferToString(inPacket.getData());
-	            ProcessCommand(input);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	
 	public static String ProcessCommand(String command) {
-		String args[] = command.split("\\|\\|");
+		String args[] = command.split("\\|");
 		switch(args[0]) {
 		case "START":
 			StartGame(Integer.parseInt(args[1]));
 			break;
-		case "RETURN_MOVE":
-			return args[1];
 		}
 		return "";
 	}
@@ -71,13 +57,13 @@ public class Neat {
 		try {
             InetAddress destAddress = InetAddress.getByName("localhost");
             byte outBuffer[] = data.getBytes();
-            DatagramPacket outPacket = new DatagramPacket(outBuffer, outBuffer.length, destAddress, 9001);
-            socket.send(outPacket);
+            DatagramPacket outPacket = new DatagramPacket(outBuffer, outBuffer.length, destAddress, Neat.Port);
+            Socket.send(outPacket);
             
             
             byte inBuffer[] = new byte[512];
             DatagramPacket inPacket = new DatagramPacket(inBuffer, inBuffer.length);
-            socket.receive(inPacket);
+            Socket.receive(inPacket);
             String back = BufferToString(inPacket.getData());
             
             return back;
@@ -99,17 +85,23 @@ public class Neat {
 	}
 	
 	
-
+	
 	public static void main(String[] args) {
-//		try {
-//			socket = new DatagramSocket(9002);
-//		} catch (SocketException e) {
-//			e.printStackTrace();
-//		}
-//		Listen();
-		
-		//args[];
-		
+		Neat.Port = Integer.parseInt(args[0]);
+		System.out.println("New Game: UDP Port: " + Port);
+		try {
+			Socket = new DatagramSocket();
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+		float fitness = StartGame(Neat.Port);
+		if(fitness>4000) {
+			SendMessage("WIN|" + fitness + "|");
+		} else {
+			SendMessage("DEAD|" + fitness + "|");
+		}
+		Socket.close();
+		System.exit(0);
 	}
 	
 	

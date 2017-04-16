@@ -10,13 +10,15 @@ import net.java.games.input.*;
 public class HandheldController implements Runnable {
 
 	public Controller controller;
+	public Roger roger;
 	
 	/**
 	 * Build the thread and get ready for event polling.
 	 * @param c Passed in by the Roger setup method.
 	 */
-	public HandheldController(Controller c) {
+	public HandheldController(Controller c, Roger r) {
 		controller = c;
+		roger = r;
 	}
 	
 	
@@ -29,7 +31,7 @@ public class HandheldController implements Runnable {
 			Component component = evt.getComponent();
 			switch(component.getName()) {
 			case "Button 2":
-				Roger.keys[0] = ButtonClick(component.getPollData());
+				roger.keys[0] = ButtonClick(component.getPollData());
 				break;
 			case "Z Axis":
 				break;
@@ -62,22 +64,22 @@ public class HandheldController implements Runnable {
 		switch(dir) {
 		case X:
 			if(data>0.8f) {
-				Roger.keys[1] = true;
+				roger.keys[1] = true;
 			}
 			else if(data<-0.8f) {
-				Roger.keys[3] = true;
+				roger.keys[3] = true;
 			}else {
-				Roger.keys[1] = Roger.keys[3] = false;
+				roger.keys[1] = roger.keys[3] = false;
 			}
 			break;
 		case Y:
 			if(data>0.8f) {
-				Roger.keys[2] = true;
+				roger.keys[2] = true;
 			}
 			else if(data<-0.8f) {
-				Roger.keys[0] = true;
+				roger.keys[0] = true;
 			}else {
-				Roger.keys[0] = Roger.keys[2] = false;
+				roger.keys[0] = roger.keys[2] = false;
 			}
 			break;
 		default:
@@ -92,31 +94,31 @@ public class HandheldController implements Runnable {
 	 * @param data
 	 */
 	public void HatSwitch(final float data) {
-		Roger.keys[0] = Roger.keys[1] = Roger.keys[1] = Roger.keys[2] = Roger.keys[3] = false;
+		roger.keys[0] = roger.keys[1] = roger.keys[1] = roger.keys[2] = roger.keys[3] = false;
 		switch((int)(data*1000)) {
 		case 125:
-			Roger.keys[3] = Roger.keys[0] = true;
+			roger.keys[3] = roger.keys[0] = true;
 			break;
 		case 250:
-			Roger.keys[0] = true;
+			roger.keys[0] = true;
 			break;
 		case 375:
-			Roger.keys[0] = Roger.keys[1] = true;
+			roger.keys[0] = roger.keys[1] = true;
 			break;
 		case 500:
-			Roger.keys[1] = true;
+			roger.keys[1] = true;
 			break;
 		case 625:
-			Roger.keys[1] = Roger.keys[2] = true;
+			roger.keys[1] = roger.keys[2] = true;
 			break;
 		case 750:
-			Roger.keys[2] = true;
+			roger.keys[2] = true;
 			break;
 		case 875:
-			Roger.keys[2] = Roger.keys[3] = true;
+			roger.keys[2] = roger.keys[3] = true;
 			break;
 		case 1000:
-			Roger.keys[3] = true;
+			roger.keys[3] = true;
 			break;
 		}
 	}
@@ -135,7 +137,7 @@ public class HandheldController implements Runnable {
 	 */
 	@Override
 	public void run() {
-		while(Roger.game) {
+		while(roger.game) {
 			PollController();
 			try {
 				Thread.sleep(1);
