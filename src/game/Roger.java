@@ -74,7 +74,6 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	 * Perform a single second of computation for my physics engine and do computations for all the articles in the game world.
 	 * */
 	public void tick() {
-		System.out.print(".");
 		
 		Clara camera = (Clara) Roger.getCam();
 		if(keys[1]) {
@@ -183,8 +182,12 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 				}
 			}
 			g3.translate(WIN_DIM.w/2, WIN_DIM.h/2);
+			g3.setFont(new Font("Helvetica", Font.BOLD, 20));
+			g3.setColor(Color.WHITE);
+			g3.drawString("Fitness: " + getCam().dst.x, WIN_DIM.w/5+1, -WIN_DIM.h/3+1);
+			g3.setColor(Color.BLACK);
+			g3.drawString("Fitness: " + getCam().dst.x, WIN_DIM.w/5, -WIN_DIM.h/3);
 			if(win) {
-				g3.setColor(Color.BLACK);
 				g3.setFont(new Font("Helvetica", Font.BOLD, 50));
 				g3.drawString("Congratulations!", -WIN_DIM.w/5, -WIN_DIM.h/3);
 			}
@@ -209,7 +212,7 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	
 	/**Kill the player*/
 	public void die() {
-		System.out.println(stuckCounter);
+		//System.out.println(stuckCounter);
 		game = false;
 	}
 
@@ -241,13 +244,14 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 				
 			}
 			if(gameMode>0) {
+				System.out.print(".");
 				byte screen[] = ArtificialIO.Vectorize(ArtificialIO.PollScreen(articles));
 				keys = Neat.GetMove(screen);
 				if(gameMode==1) tick();
 			}
 		}
 		if(gameMode==0) {
-			System.out.println(getFitness());
+			System.out.println("Fitness: " + getFitness());
 			frame.setVisible(false);
 			frame.dispose();
 		}
@@ -324,9 +328,10 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 			}
 			break;
 		case KeyEvent.VK_ESCAPE:
-			game = false;
 			if(gameMode==0) {
 				System.exit(0);
+			}else {
+				game = false;
 			}
 			break;
 		}
@@ -339,36 +344,46 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 	
 	public static void main(String[] args) {
 		WIN_DIM = new Box(Toolkit.getDefaultToolkit().getScreenSize());
-		//
-		//Build the frame, buffer and input for the game
-		//
-		Roger r = new Roger();
-		r.frame = new JFrame("Roger Rabbit");
-		r.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		r.frame.setSize(Roger.WIN_DIM.getDim());
-		//f.setUndecorated(true);
-		r.frame.setLocationRelativeTo(null);
-		r.frame.setVisible(true);
-		
-		r.frame.add(r);
-		r.frame.addKeyListener(r);
-		
-		r.buffer = new BufferedImage(Roger.WIN_DIM.w, Roger.WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
-		r.g3 = r.buffer.getGraphics();
-		r.g3.translate(Roger.WIN_DIM.w/2, Roger.WIN_DIM.h/2);
-		
-		
-		Thread t = new Thread(r);
-		t.start();
-		
+		for(byte i=0; i<10; i++) {
+			//
+			//Build the frame, buffer and input for the game
+			//
+			Roger r = new Roger();
+			r.frame = new JFrame("Roger Rabbit");
+			r.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			r.frame.setSize(Roger.WIN_DIM.getDim());
+			//f.setUndecorated(true);
+			r.frame.setLocationRelativeTo(null);
+			//r.frame.setUndecorated(true);
+			
+			r.frame.add(r);
+			r.frame.addKeyListener(r);
+			r.frame.setVisible(true);
+			
+			r.buffer = new BufferedImage(Roger.WIN_DIM.w, Roger.WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
+			r.g3 = r.buffer.getGraphics();
+			r.g3.translate(Roger.WIN_DIM.w/2, Roger.WIN_DIM.h/2);
+			
+			
+			Thread t = new Thread(r);
+			t.start();
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
+	
+	/**Determine the fitness of a life.*/
 	public float getFitness() {
 		float fitness = getCam().dst.x;
 		if(fitness<0) {
 			fitness = 0;
 		}
-		System.out.println(getCam().velocity.toString() + "|" + getCam().dst.getPos2f());
+		if(gameMode==1) System.out.println(getCam().velocity.toString() + "|" + getCam().dst.getPos2f());
 		return fitness;
 	}
 
@@ -383,7 +398,6 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		//
 		frame = new JFrame("Roger Rabbit");
 		frame.setSize(Roger.WIN_DIM.getDim());
-		//f.setUndecorated(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -392,7 +406,7 @@ public class Roger extends JPanel implements Runnable, KeyListener {
 		buffer = new BufferedImage(Roger.WIN_DIM.w, Roger.WIN_DIM.h, BufferedImage.TYPE_INT_ARGB);
 		g3 = buffer.getGraphics();
 		g3.translate(Roger.WIN_DIM.w/2, Roger.WIN_DIM.h/2);
-//		
+		
 		gameMode = 2;
 		
 	}

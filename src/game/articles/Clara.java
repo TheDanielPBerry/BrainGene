@@ -4,8 +4,6 @@ import game.Article;
 import game.Box;
 import game.Direction;
 import game.Model;
-import game.Physics;
-import game.Vector2f;
 
 public class Clara extends Mob {
 	

@@ -118,7 +118,7 @@ public class HandheldController implements Runnable {
 			roger.keys[3] = roger.keys[2] = true;
 			break;
 		case 1000:
-			roger.keys[3] = true;
+			roger.keys[2] = true;
 			break;
 		}
 	}
