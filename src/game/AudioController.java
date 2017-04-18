@@ -14,6 +14,7 @@ public class AudioController {
 	public AudioController() {
 		Thread song = new Thread(new Runnable() {
 			public void run() {
+				
 			}
 		});
 		song.start();
@@ -22,6 +23,7 @@ public class AudioController {
 	
 	
 	
+	@SuppressWarnings("unused")
 	private void loopClip(String filePath) {
 		try {
 			URL url = new URL("file", "localhost", filePath);
